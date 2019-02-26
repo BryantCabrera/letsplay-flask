@@ -9,7 +9,7 @@ class UserList(Resource):
         return jsonify({'users': [{'username': 'Bryant'}]})
 
 
-class Boardgame(Resource):
+class User(Resource):
     def get(self, id):
         return jsonify({'username': 'Bryant'})
 
@@ -27,7 +27,7 @@ api.add_resource(
     endpoint='users'
 )
 api.add_resource(
-    Boardgame,
+    User,
     '/users/<int:id>',
     endpoint='user'
 )
