@@ -5,7 +5,7 @@ from flask_restful import (Resource, Api, reqparse, fields, marshal,
 
 import models
 
-#want we want to send back when a user is called
+#what we want to send back when a user is called
 user_fields = {
     'id': fields.Integer,
     'name': fields.String,
@@ -21,7 +21,7 @@ class UserList(Resource):
         self.reqparse.add_argument(
             'name',
             required=False,
-            help='No username provided.',
+            help='No name provided.',
             location=['form', 'json']
         )
         self.reqparse.add_argument(
