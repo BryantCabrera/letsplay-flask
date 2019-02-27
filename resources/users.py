@@ -78,9 +78,11 @@ class UserList(Resource):
     #@marshal_with(user_fields)
     def post(self):
         args = self.reqparse.parse_args()
+        print(args, ' these are args from users.py')
         if args['password'] == args['verify_password']:
             print(args, ' this is args from UserList in users.py')
-            user = models.User.create_user(**args)
+            # user = models.User.create_user(**args)
+            user = models.User.create_user(name=args['name'], email=args['email'], password=args['password'], verify_password=args['verify_password'])
             login_user(user)
             return marshal(user, user_fields), 201
         return make_response(

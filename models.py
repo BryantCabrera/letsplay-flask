@@ -10,7 +10,7 @@ class User(UserMixin, Model):
     name = CharField()
     email = CharField(unique=True)
     password = CharField()
-    location = IntegerField()
+    location = IntegerField(null = True)
     # member_since = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
