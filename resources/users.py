@@ -78,17 +78,44 @@ class UserList(Resource):
 
 
 class User(Resource):
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument(
+            'name',
+            required=False,
+            help='No name provided.',
+            location=['form', 'json']
+        )
+        self.reqparse.add_argument(
+            'email',
+            required=True,
+            help='No email provided.',
+            location=['form', 'json']
+        )
+        self.reqparse.add_argument(
+            'location',
+            required=False,
+            help='No location provided.',
+            location=['form', 'json']
+        )
+        super().__init__()
+
     @marshal_with(user_fields)
     def get(self, id):
         return user_or_404(id)
 
     @marshal_with(user_fields)
     def put(self, id):
-        return jsonify({'username': 'BryantCabrera'})
+        args = self.reqparse.parse_args()
+        query = models.User.update(**args).where(models.User.id == id)
+        query.execute()
+        return (models.User.get(models.User.id == id), 200)
 
     @marshal_with(user_fields)
     def delete(self, id):
-        return jsonify({'username': 'Bryant Cabrera deleted'})
+        query = models.User.delete().where(models.User.id == id)
+        query.execute()
+        return 'This user resource was successfully deleted.'
 
 users_api = Blueprint('resources.users', __name__)
 api = Api(users_api)
