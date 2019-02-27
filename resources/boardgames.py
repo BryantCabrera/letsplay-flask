@@ -1,8 +1,7 @@
 from flask import jsonify, Blueprint, abort
-
 from flask_restful import (Resource, Api, reqparse, fields, marshal,
                                marshal_with, url_for)
-
+from flask_login import login_required
 import models
 
 #what we want to send back when a user is called
@@ -93,6 +92,7 @@ class BoardgameList(Resource):
                    for boardgame in models.Boardgame.select()]
         return {'boardgames': boardgames}
 
+    @login_required
     @marshal_with(boardgame_fields)
     def post(self):
         args = self.reqparse.parse_args()
@@ -164,6 +164,7 @@ class Boardgame(Resource):
     def get(self, id):
         return boardgame_or_404(id)
 
+    @login_required
     @marshal_with(boardgame_fields)
     def put(self, id):
         args = self.reqparse.parse_args()
@@ -171,6 +172,7 @@ class Boardgame(Resource):
         query.execute()
         return (models.Boardgame.get(models.Boardgame.id == id), 200)
 
+    @login_required
     @marshal_with(boardgame_fields)
     def delete(self, id):
         query = models.Boardgame.delete().where(models.Boardgame.id == id)

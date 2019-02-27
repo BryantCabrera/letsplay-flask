@@ -1,8 +1,7 @@
 from flask import jsonify, Blueprint, abort
-
 from flask_restful import (Resource, Api, reqparse, fields, marshal,
                                marshal_with, url_for)
-
+from flask_login import login_required
 import models
 
 #what we want to send back when a user is called
@@ -39,11 +38,13 @@ class UserBoardgameList(Resource):
         super().__init__()
 
     #this is one way of incorporating marshal.  Including this marshal without decorater to demonstrate it's the same as with the decorater
+
     def get(self):
         userboardgames = [marshal(userboardgame, userboardgame_fields)
                    for userboardgame in models.UserBoardgame.select()]
         return {'userboardgames': userboardgames}
 
+    @login_required
     @marshal_with(userboardgame_fields)
     def post(self):
         args = self.reqparse.parse_args()
@@ -73,6 +74,7 @@ class UserBoardgame(Resource):
     def get(self, id):
         return userboardgame_or_404(id)
 
+    @login_required
     @marshal_with(userboardgame_fields)
     def put(self, id):
         args = self.reqparse.parse_args()
@@ -80,6 +82,7 @@ class UserBoardgame(Resource):
         query.execute()
         return (models.UserBoardgame.get(models.UserBoardgame.id == id), 200)
 
+    @login_required
     @marshal_with(userboardgame_fields)
     def delete(self, id):
         query = models.UserBoardgame.delete().where(models.UserBoardgame.id == id)

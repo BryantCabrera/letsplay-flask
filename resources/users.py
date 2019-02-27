@@ -1,7 +1,11 @@
-from flask import jsonify, Blueprint, abort
+import json
+
+from flask import jsonify, Blueprint, abort, make_response
 
 from flask_restful import (Resource, Api, reqparse, fields, marshal,
                                marshal_with, url_for)
+
+from flask_login import login_user, logout_user, login_required, current_user
 
 import models
 
@@ -65,17 +69,24 @@ class UserList(Resource):
         super().__init__()
 
     #this is one way of incorporating marshal.  Including this marshal without decorater to demonstrate it's the same as with the decorater
+    @login_required
     def get(self):
         users = [marshal(user, user_fields)
                    for user in models.User.select()]
         return {'users': users}
 
-    @marshal_with(user_fields)
+    #@marshal_with(user_fields)
     def post(self):
         args = self.reqparse.parse_args()
-        print(args, ' this is args from UserList in users.py')
-        user = models.User.create(**args)
-        return user
+        if args['password'] == args['verify_password']:
+            print(args, ' this is args from UserList in users.py')
+            user = models.User.create_user(**args)
+            login_user(user)
+            return marshal(user, user_fields), 201
+        return make_response(
+            json.dumps({
+                'error': 'Password and password verification do not match!'
+            }), 400)
 
 
 class User(Resource):
@@ -101,10 +112,12 @@ class User(Resource):
         )
         super().__init__()
 
+    @login_required
     @marshal_with(user_fields)
     def get(self, id):
         return user_or_404(id)
 
+    @login_required
     @marshal_with(user_fields)
     def put(self, id):
         args = self.reqparse.parse_args()
@@ -112,6 +125,7 @@ class User(Resource):
         query.execute()
         return (models.User.get(models.User.id == id), 200)
 
+    @login_required
     @marshal_with(user_fields)
     def delete(self, id):
         query = models.User.delete().where(models.User.id == id)
