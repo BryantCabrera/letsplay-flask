@@ -9,7 +9,7 @@ class User(Model):
     email = CharField()
     password = CharField()
     location = IntegerField()
-    member_since = DateTimeField(default=datetime.datetime.now)
+    # member_since = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = DATABASE
@@ -23,7 +23,7 @@ class Boardgame(Model):
     play_time_min = IntegerField()
     img_url = CharField()
     description = CharField()
-    created_at = DateTimeField(default=datetime.datetime.now)
+    # created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = DATABASE
@@ -31,7 +31,7 @@ class Boardgame(Model):
 class UserBoardgame(Model):
     user = ForeignKeyField(User, related_name='userboardgame')
     boardgame = ForeignKeyField(Boardgame, related_name='userboardgame')
-    joined_at = DateTimeField(default=datetime.datetime.now)
+    # joined_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = DATABASE
