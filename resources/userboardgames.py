@@ -28,6 +28,6 @@ api.add_resource(
 )
 api.add_resource(
     UserBoardgame,
-    '/userboardgame/<int:id>',
+    '/userboardgames/<int:id>',
     endpoint='userboardgame'
 )
