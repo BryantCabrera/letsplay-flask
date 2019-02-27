@@ -1,18 +1,36 @@
 import datetime
 
 from peewee import *
+from flask_bcrypt import generate_password_hash
+from flask_login import UserMixin
 
 DATABASE = SqliteDatabase('letsplay.sqlite')
 
-class User(Model):
+class User(UserMixin, Model):
     name = CharField()
-    email = CharField()
+    email = CharField(unique=True)
     password = CharField()
     location = IntegerField()
     # member_since = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = DATABASE
+
+    @classmethod
+    def create_user(cls, name, email, password, **kwargs):
+        email = email.lower()
+        try:
+            cls.select().where(
+                (cls.email == email)
+            ).get()
+        except cls.DoesNotExist:
+            user = cls(name=name, email=email)
+            user.password = generate_password_hash(password)
+
+            user.save()
+            return user
+        else:
+            raise Exception("User with that email already exists!")
 
 class Boardgame(Model):
     title = CharField()
