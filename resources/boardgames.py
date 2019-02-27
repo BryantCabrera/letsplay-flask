@@ -91,7 +91,7 @@ class BoardgameList(Resource):
     def get(self):
         boardgames = [marshal(boardgame, boardgame_fields)
                    for boardgame in models.Boardgame.select()]
-        return {'boardgame': boardgames}
+        return {'boardgames': boardgames}
 
     @marshal_with(boardgame_fields)
     def post(self):
