@@ -14,6 +14,14 @@ user_fields = {
     # 'member_since': fields.DateTime(dt_format='rfc822'),
 }
 
+def user_or_404(user_id):
+    try:
+        user = models.User.get(models.User.id == user_id)
+    except models.User.DoesNotExist:
+        abort(404)
+    else:
+        return user
+
 class UserList(Resource):
     #this is the response to the client
     def __init__(self):
@@ -57,22 +65,28 @@ class UserList(Resource):
         super().__init__()
 
     def get(self):
-        return jsonify({'users': [{'username': 'Bryant'}]})
+        users = [marshal(user, user_fields)
+                   for user in models.User.select()]
+        return {'users': users}
 
+    @marshal_with(user_fields)
     def post(self):
         args = self.reqparse.parse_args()
         print(args, ' this is args from UserList in users.py')
         user = models.User.create(**args)
-        return jsonify({'users': [{'name': 'Bryant'}]})
+        return user
 
 
 class User(Resource):
+    @marshal_with(user_fields)
     def get(self, id):
-        return jsonify({'username': 'Bryant'})
+        return user_or_404(id)
 
+    @marshal_with(user_fields)
     def put(self, id):
         return jsonify({'username': 'BryantCabrera'})
 
+    @marshal_with(user_fields)
     def delete(self, id):
         return jsonify({'username': 'Bryant Cabrera deleted'})
 

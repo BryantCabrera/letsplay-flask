@@ -6,7 +6,7 @@ from flask_restful import (Resource, Api, reqparse, fields, marshal,
 import models
 
 #what we want to send back when a user is called
-user_fields = {
+boardgame_fields = {
     'id': fields.Integer,
     'title': fields.String,
     'designer': fields.String,
@@ -84,7 +84,7 @@ class BoardgameList(Resource):
 
     def post(self):
         args = self.reqparse.parse_args()
-        print(args, ' this is args from BoardgameList in users.py')
+        print(args, ' this is args from BoardgameList in boardgames.py')
         boardgame = models.Boardgame.create(**args)
         return jsonify({'boardgame': [{'title': 'Settlers of Catan'}]})
 
