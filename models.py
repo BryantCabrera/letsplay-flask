@@ -60,7 +60,7 @@ class UserBoardgame(Model):
         database = DATABASE
 
 def populate():
-    for i in range(35, 101):
+    for i in range(1, 101):
         request = requests.get('https://bgg-json.azurewebsites.net/thing/{number}'.format(number=i))
         # request = requests.get('https://www.boardgamegeek.com/xmlapi2/thing/id={number}'.format(number=i))
         # print(json.loads(request.text)['image'])
@@ -91,5 +91,5 @@ def populate():
 def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Boardgame], safe=True)
-    populate()
+    # populate()
     DATABASE.close()
