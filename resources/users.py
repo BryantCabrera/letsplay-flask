@@ -6,6 +6,7 @@ from flask_restful import (Resource, Api, reqparse, fields, marshal,
                                marshal_with, url_for)
 
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_bcrypt import check_password_hash #for login
 
 import models
 
@@ -112,6 +113,13 @@ class User(Resource):
             help='No location provided.',
             location=['form', 'json']
         )
+        self.reqparse.add_argument(
+            'img_url',
+            required=False,
+            help='No profile picture URL provided.',
+            location=['form', 'json'],
+            default='../static/imgs/no_img.png'
+        )
         super().__init__()
 
     @login_required
@@ -134,12 +142,75 @@ class User(Resource):
         query.execute()
         return 'This user resource was successfully deleted.'
 
+class UserLogin(Resource):
+    #this is the response to the client
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument(
+            'email',
+            required=True,
+            help='No email provided.',
+            location=['form', 'json']
+        )
+        self.reqparse.add_argument(
+            'password',
+            required=True,
+            help='No password provided.',
+            location=['form', 'json']
+        )
+        # self.reqparse.add_argument(
+        #     'member_since',
+        #     required=False,
+        #     help='No date found.',
+        #     location=['form', 'json']
+        # )
+        super().__init__()
+
+    #old way, but will return error
+    # def post(self):
+    #     args = self.reqparse.parse_args()
+    #     # print(args['name'])
+    #     logged_user = models.User.get(models.User.email == args['email'])
+    #     print('---------- logged')
+    #     if logged_user and check_password_hash(logged_user.password, args['password']):
+    #         login_user(logged_user)
+    #         print(current_user)
+    #         print('current_user')
+    #         return marshal(logged_user, user_fields)
+    #     else:
+    #         return 'Your email or password doesn\'t match!'
+
+    # old way, but will return error
+    def post(self):
+        args = self.reqparse.parse_args()
+        
+        try:
+            logged_user = models.User.get(models.User.email == args['email'])
+            print('---------- logged')
+        except models.DoesNotExist:
+            print('User does not exist!')
+        else:
+            if logged_user and check_password_hash(logged_user.password, args['password']):
+                login_user(logged_user)
+                print(current_user)
+                print('current_user')
+                return marshal(logged_user, user_fields)
+            else:
+                return 'Your email or password doesn\'t match!'
+
+
+
 users_api = Blueprint('resources.users', __name__)
 api = Api(users_api)
 api.add_resource(
     UserList,
     '/users',
     endpoint='users'
+)
+api.add_resource(
+    UserLogin,
+    '/users/login',
+    endpoint='userslogin'
 )
 api.add_resource(
     User,

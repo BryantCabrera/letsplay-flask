@@ -8,9 +8,10 @@ DATABASE = SqliteDatabase('letsplay.sqlite')
 
 class User(UserMixin, Model):
     name = CharField()
-    email = CharField(unique=True)
+    email = CharField(unique = True)
     password = CharField()
     location = IntegerField(null = True)
+    img_url = CharField(null = True)
     # member_since = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
