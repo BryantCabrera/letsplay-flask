@@ -13,7 +13,7 @@ from flask_bcrypt import check_password_hash #for login
 from flask_restful import (Resource, Api, reqparse, fields, marshal,
                                marshal_with, url_for) #for login
 
-import models #for login
+# import models #for login
 
 login_manager = LoginManager()
 

@@ -57,7 +57,11 @@ As a user, I want a responsive navigation bar because I want access to appropria
 
 
 ## E. Getting Started
-
+1.  Make sure you have downloaded all dependencies for the flask backend
+    1.  in terminal, cd to your project folder
+    2.  $pip3 install -r requirements.txt
+2.  Run the environment with $ virtualenv .env -p python3
+3.  Make sure to run the flask server with $python app.py
 
 ## F. Github workflow
 1.	Link to repo: [https://github.com/BryantCabrera/letsplay-flask](https://github.com/BryantCabrera/letsplay-flask).  
