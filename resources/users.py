@@ -70,7 +70,6 @@ class UserList(Resource):
         super().__init__()
 
     #this is one way of incorporating marshal.  Including this marshal without decorater to demonstrate it's the same as with the decorater
-    @login_required
     def get(self):
         users = [marshal(user, user_fields)
                    for user in models.User.select()]
