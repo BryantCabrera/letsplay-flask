@@ -90,6 +90,6 @@ def populate():
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Boardgame], safe=True)
+    DATABASE.create_tables([User, Boardgame, UserBoardgame], safe=True)
     # populate()
     DATABASE.close()

@@ -44,14 +44,22 @@ class UserBoardgameList(Resource):
                    for userboardgame in models.UserBoardgame.select()]
         return {'userboardgames': userboardgames}
 
+    # @login_required
+    # @marshal_with(userboardgame_fields)
+    # def post(self):
+    #     args = self.reqparse.parse_args()
+    #     print(args, ' this is args from UserBoardgameList in boardgames.py')
+    #     userboardgame = models.UserBoardgame.create(**args)
+    #     return userboardgame
+
     @login_required
     @marshal_with(userboardgame_fields)
     def post(self):
         args = self.reqparse.parse_args()
-        print(args, ' this is args from UserBoardgameList in boardgames.py')
-        userboardgame = models.UserBoardgame.create(**args)
+        print(args, ' this is args from UserBoardgameList post in userboardgames.py')
+        userboardgame = models.UserBoardgame.create(user=args['user'], boardgame=args['boardgame'])
+        # models.UserBoardgame.create(user=id, boardgame=boardgame_id);
         return userboardgame
-
 
 class UserBoardgame(Resource):
     def __init__(self):

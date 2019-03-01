@@ -34,6 +34,7 @@ def load_user(userid):
 #supports_credentials=True allows us to send cookties back and forth
 CORS(users_api, origins= ["http://localhost:3000"], supports_credentials=True)
 CORS(boardgames_api, origins=["http://localhost:3000"], supports_credentials=True)
+CORS(userboardgames_api, origins=["http://localhost:3000"], supports_credentials=True)
 # CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
 
 ##manage pool connections to the database
