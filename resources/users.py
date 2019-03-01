@@ -129,7 +129,9 @@ class User(Resource):
     @login_required
     @marshal_with(user_fields)
     def put(self, id):
+        print('hey')
         args = self.reqparse.parse_args()
+        print(args, 'this is args from users put')
         query = models.User.update(**args).where(models.User.id == id)
         query.execute()
         return (models.User.get(models.User.id == id), 200)
