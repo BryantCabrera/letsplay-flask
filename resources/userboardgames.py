@@ -11,6 +11,20 @@ userboardgame_fields = {
     'boardgame': fields.String,
 }
 
+boardgame_fields = {
+    'id': fields.Integer,
+    'title': fields.String,
+    'designer': fields.String,
+    'number_of_players_max': fields.Integer,
+    'number_of_players_min': fields.Integer,
+    # 'age_min': fields.Integer,
+    # 'play_time_max': fields.Integer,
+    # 'play_time_min': fields.Integer,
+    'play_time': fields.Integer,
+    'img_url': fields.String,
+    'description': fields.String,
+}
+
 def userboardgame_or_404(userboardgame_id):
     try:
         userboardgame = models.UserBoardgame.get(models.UserBoardgame.id == userboardgame_id)
@@ -44,6 +58,7 @@ class UserBoardgameList(Resource):
     #                for userboardgame in models.UserBoardgame.select()]
     #     return {'userboardgames': userboardgames}
     @login_required
+    # @marshal_with(userboardgame_fields)
     def get(self):
         # test = models.Boardgame.select().join(models.UserBoardgame).join(models.User).where(models.User.id == current_user.id)
         # # args = self.reqparse.parse_args()
@@ -53,11 +68,11 @@ class UserBoardgameList(Resource):
 
 
         userboardgames = models.Boardgame.select().join(models.UserBoardgame).join(models.User).where(models.User.id == current_user.id)
-
+        games = []
         for boardgame in userboardgames:
-            print(boardgame.title, ' this is test from userboardgames get')
-
-        return userboardgames
+            games.append(marshal(boardgame, boardgame_fields))
+        print(games)
+        return games
         # userboardgames_ids = [marshal(userboardgame, userboardgame_fields)
         #            for userboardgame in models.UserBoardgame.select().where(models.UserBoardgame.user == str(current_user.id))]
         # for userboardgames_id in userboardgames_ids:
