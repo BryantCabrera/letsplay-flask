@@ -14,41 +14,74 @@ Abraham Hsu - Scrum Master/API Manager/Designer/React Lead
 
 ```
 
-## B. User Stories
+## B. Link to deployed app: 
+heroku
+
+## C. User Stories
 ```
 As a user, I want to be able to check out some of the app's features without having to sign up.
 ```
 ```
 As a user, I want a responsive navigation bar because I want access to appropriate components of the app.
 ```
+```
+As a user, I want to view a list of all the boardgames and their info without having to log in so I can assess whether I should register on the site or not.
+```
+```
+As a user, I want a link in the NavBar to my own profile and a logout link for convenience.
+```
+```
+As a user, I want to add boardgames from the boardgames index and know which ones have been added to my profile already for a better user experience.
+```
+```
+As a user, on my Edit Page, I want to have input fields pre-populated with my current info so that I know what I want to edit.
+```
+
+## D. App Images
+1. Splash Page
+    > ![Image of Splash Page](https://i.imgur.com/QqglYvs.png)
+
+2. Registration Page
+    > ![Image of Registration Page](https://i.imgur.com/Qy0ujpR.png)
+
+3. User Profile Page
+    > ![Image of User Profile Page](https://i.imgur.com/8TZ3SEk.png)
+
+4. Boardgame Index
+    > ![Image of Boardgame Index](https://i.imgur.com/wi7cQfB.jpg)
+
+5. Individual Boardgame's Show Page
+    > ![Image of Individual Boardgame's Show Page](https://i.imgur.com/fbD31Lg.png)
 
 
-## C. Images
-
-
-
-## D. Technologies Used
+## E. Technologies Used
 > Front-End
     
     1. React
-    2. React-bootstrap
+    2. Bootstrap
     3. BEM
-    4. Google fonts
-    5. fetch
+    4. Google Fonts
+    5. HTML
+    6. CSS
+    7. Javascript
+    8. Heroku
+    9. Git
 
 > Back-End
 
-    1. flask
+    1. Python
     2. PostgreSQL
-    3. axios
+    3. Flask
+    4. Restful Routing
+    5. peewee
 
+> APIs
+
+    1. Board Game Geek
 
 > Authentication
     
-    1. passport
-    2. google OAuth 2
-    3. sockets
-    4. bcrypt
+    1. Bcrypt
 
 > Planning/Organization/Design
     
@@ -56,14 +89,38 @@ As a user, I want a responsive navigation bar because I want access to appropria
     2. Adobe Photoshop
 
 
-## E. Getting Started
+## F. Getting Started
+###Flask Back-End
+```
 1.  Make sure you have downloaded all dependencies for the flask backend
     1.  in terminal, cd to your project folder
     2.  $pip3 install -r requirements.txt
 2.  Run the environment with $ virtualenv .env -p python3
 3.  Make sure to run the flask server with $python app.py
+```
 
-## F. Github workflow
+### React Front-End
+```
+1. LOGGING IN: Users are able to register for a new account. 
+    > When a user signs up for the first time, user will be presented a user profile page, where they'll fill out his or her name, profile picture, and location.
+
+    > User will be able to browse all board games and add a particular game to his/her collection.
+
+2. USER PROFILE:
+    > Once vendor has completed their profile page, website will redirect to their own profile page, showing their info: profile picture, username, location, and board games he/she owns.
+
+3. WEBSITE VISITORS:
+    > Upon visiting the landing page, visitors are greeted a splash image of people gathered around playin a boardgame and can either register for a new account, discover all board games, or browse other profile.
+
+    > Upon clicking a boardgame, visitor will be redirected to the Boardgame Show page, which displays additional information about the game: the designer, minimum and maximum players, play time, and description.
+
+4. BOARD GAMES:
+    > Available boardgames are viewable by anyone, without the need to register.
+    
+    > Clicking a boardgame image will redirect user to a boardgame's individual showpage, showing additional information.
+```
+
+## G. Github workflow
 1.	Link to repo: [https://github.com/BryantCabrera/letsplay-flask](https://github.com/BryantCabrera/letsplay-flask).  
 2.	On your personal repo (NOT the General Assembly) enterprise, log in.  then click link above and fork the repo.  Make sure the repo is in your personal GitHub (go to your personal GitHub account and the project repo “relocater” should be there).  Then, from YOUR PERSONAL FORK, clone it to your local repo.
     1.	$git clone {without curly braces, put the clone link here}
@@ -112,79 +169,15 @@ As a user, I want a responsive navigation bar because I want access to appropria
     2.	DO NOT hit “merge”, Bryant will be handling this.
 
 
-## G. Next Steps
-
-
-
-
-
-#<u>React Documentation</u>
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# letsplay-react
+## H. Next Steps
+1. Unsolved problems:
+    - [ ] Search bar needs to match exact characters, including Uppercase. 
+    - [ ] Search bar requires users to press "Reset Search" everytime a user wants to perform another search.
+    - [ ] After adding a boardgame to user, must view all profiles then click on own profile in order to correctly display owned boardgames.
+2. Planned features:
+    - [ ] When a boardgame is added, no activity happens. Ideally, we'd make it so a flash message appears, "Boardgame has been added!" 
+    - [ ] Add ability for users able to leave ratings and reviews on boardgames.
+    - [ ] Add ability for users able to chat with other users to discuss boardgames or meet-up times to play boardgames together.
+    - [ ] Authentication with Google or other social medias for easier login and security.
+    - [ ] Add ability for user to delete a boardgame from their list.
+    - [ ] Make search bar smoother: with each key press, start filtering boardgame names and animate the flow of boardgames disappearing.

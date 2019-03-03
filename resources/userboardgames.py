@@ -62,10 +62,6 @@ class UserBoardgameList(Resource):
     def post(self):
         args = self.reqparse.parse_args()
         userboardgame = models.UserBoardgame.create(user=args['user'], boardgame=args['boardgame'])
-        # boardgame = models.Boardgame.select().where(models.Boardgame.id == int(args['boardgame']))
-        # print(int(args['boardgame']), 'args[boardgame]')
-        # print(marshal(boardgame, boardgame_fields), ' this is boardgame from userboardgames.py')
-        # return marshal(boardgame, boardgame_fields)
         return userboardgame
 
 class UserBoardgame(Resource):
