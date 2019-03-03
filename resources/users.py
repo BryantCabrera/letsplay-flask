@@ -15,8 +15,8 @@ user_fields = {
     'id': fields.Integer,
     'name': fields.String,
     'email': fields.String,
+    'img_url': fields.String,
     'location': fields.Integer,
-    # 'member_since': fields.DateTime(dt_format='rfc822'),
 }
 
 def user_or_404(user_id):
@@ -61,12 +61,6 @@ class UserList(Resource):
             help='No location provided.',
             location=['form', 'json']
         )
-        # self.reqparse.add_argument(
-        #     'member_since',
-        #     required=False,
-        #     help='No date found.',
-        #     location=['form', 'json']
-        # )
         super().__init__()
 
     #this is one way of incorporating marshal.  Including this marshal without decorater to demonstrate it's the same as with the decorater
@@ -78,9 +72,7 @@ class UserList(Resource):
     #@marshal_with(user_fields)
     def post(self):
         args = self.reqparse.parse_args()
-        print(args, ' these are args from users.py')
         if args['password'] == args['verify_password']:
-            print(args, ' this is args from UserList in users.py')
             # user = models.User.create_user(**args)
             user = models.User.create_user(name=args['name'], email=args['email'], password=args['password'], verify_password=args['verify_password'])
             login_user(user)
@@ -129,9 +121,7 @@ class User(Resource):
     @login_required
     @marshal_with(user_fields)
     def put(self, id):
-        print('hey')
         args = self.reqparse.parse_args()
-        print(args, 'this is args from users put')
         query = models.User.update(**args).where(models.User.id == id)
         query.execute()
         return (models.User.get(models.User.id == id), 200)
@@ -159,29 +149,8 @@ class UserLogin(Resource):
             help='No password provided.',
             location=['form', 'json']
         )
-        # self.reqparse.add_argument(
-        #     'member_since',
-        #     required=False,
-        #     help='No date found.',
-        #     location=['form', 'json']
-        # )
         super().__init__()
 
-    #old way, but will return error
-    # def post(self):
-    #     args = self.reqparse.parse_args()
-    #     # print(args['name'])
-    #     logged_user = models.User.get(models.User.email == args['email'])
-    #     print('---------- logged')
-    #     if logged_user and check_password_hash(logged_user.password, args['password']):
-    #         login_user(logged_user)
-    #         print(current_user)
-    #         print('current_user')
-    #         return marshal(logged_user, user_fields)
-    #     else:
-    #         return 'Your email or password doesn\'t match!'
-
-    # old way, but will return error
     def post(self):
         args = self.reqparse.parse_args()
         
@@ -205,8 +174,6 @@ class UserLogout(Resource):
         logout_user()
         print('User has been successfully logged out.')
         return 'User has been successfully logged out.'
-
-
 
 users_api = Blueprint('resources.users', __name__)
 api = Api(users_api)

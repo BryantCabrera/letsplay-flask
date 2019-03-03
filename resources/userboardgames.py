@@ -17,9 +17,6 @@ boardgame_fields = {
     'designer': fields.String,
     'number_of_players_max': fields.Integer,
     'number_of_players_min': fields.Integer,
-    # 'age_min': fields.Integer,
-    # 'play_time_max': fields.Integer,
-    # 'play_time_min': fields.Integer,
     'play_time': fields.Integer,
     'img_url': fields.String,
     'description': fields.String,
@@ -52,50 +49,19 @@ class UserBoardgameList(Resource):
         super().__init__()
 
     #this is one way of incorporating marshal.  Including this marshal without decorater to demonstrate it's the same as with the decorater
-
-    # def get(self):
-    #     userboardgames = [marshal(userboardgame, userboardgame_fields)
-    #                for userboardgame in models.UserBoardgame.select()]
-    #     return {'userboardgames': userboardgames}
     @login_required
-    # @marshal_with(userboardgame_fields)
     def get(self):
-        # test = models.Boardgame.select().join(models.UserBoardgame).join(models.User).where(models.User.id == current_user.id)
-        # # args = self.reqparse.parse_args()
-        # query = models.UserBoardgame.select().join(User).where(User.id == current_user.id)
-        # print(query, ' this is query from userboardgames get')
-        # print(str(current_user.id), 'args from get userbg')
-
-
         userboardgames = models.Boardgame.select().join(models.UserBoardgame).join(models.User).where(models.User.id == current_user.id)
         games = []
         for boardgame in userboardgames:
             games.append(marshal(boardgame, boardgame_fields))
-        print(games)
         return games
-        # userboardgames_ids = [marshal(userboardgame, userboardgame_fields)
-        #            for userboardgame in models.UserBoardgame.select().where(models.UserBoardgame.user == str(current_user.id))]
-        # for userboardgames_id in userboardgames_ids:
-        #     print(userboardgames_id['boardgame'])
-        # userboardgames = [for boardgame in models.Boardgame.select().where(models.Boardgame.id == for userboardgames_id in userboardgames_ids:userboardgames_ids['boardgame'])]
-        
-        # return {'userboardgames': userboardgames}
-
-    # @login_required
-    # @marshal_with(userboardgame_fields)
-    # def post(self):
-    #     args = self.reqparse.parse_args()
-    #     print(args, ' this is args from UserBoardgameList in boardgames.py')
-    #     userboardgame = models.UserBoardgame.create(**args)
-    #     return userboardgame
 
     @login_required
     @marshal_with(userboardgame_fields)
     def post(self):
         args = self.reqparse.parse_args()
-        print(args, ' this is args from UserBoardgameList post in userboardgames.py')
         userboardgame = models.UserBoardgame.create(user=args['user'], boardgame=args['boardgame'])
-        # models.UserBoardgame.create(user=id, boardgame=boardgame_id);
         return userboardgame
 
 class UserBoardgame(Resource):
@@ -115,9 +81,14 @@ class UserBoardgame(Resource):
         )
         super().__init__()
     
-    @marshal_with(userboardgame_fields)
+    # @marshal_with(userboardgame_fields)
     def get(self, id):
-        return userboardgame_or_404(id)
+        userboardgames = models.Boardgame.select().join(models.UserBoardgame).join(models.User).where(models.User.id == id)
+        games = []
+        for boardgame in userboardgames:
+            games.append(marshal(boardgame, boardgame_fields))
+        return games
+        # return userboardgame_or_404(id)
 
     @login_required
     @marshal_with(userboardgame_fields)

@@ -11,9 +11,6 @@ boardgame_fields = {
     'designer': fields.String,
     'number_of_players_max': fields.Integer,
     'number_of_players_min': fields.Integer,
-    # 'age_min': fields.Integer,
-    # 'play_time_max': fields.Integer,
-    # 'play_time_min': fields.Integer,
     'play_time': fields.Integer,
     'img_url': fields.String,
     'description': fields.String,
@@ -55,24 +52,6 @@ class BoardgameList(Resource):
             help='No minimum number of players provided.',
             location=['form', 'json']
         )
-        # self.reqparse.add_argument(
-        #     'age_min',
-        #     required=False,
-        #     help='No minimum age provided.',
-        #     location=['form', 'json']
-        # )
-        # self.reqparse.add_argument(
-        #     'play_time_max',
-        #     required=True,
-        #     help='No maximum playtime provided.',
-        #     location=['form', 'json']
-        # )
-        # self.reqparse.add_argument(
-        #     'play_time_min',
-        #     required=True,
-        #     help='No minimum playtime provided.',
-        #     location=['form', 'json']
-        # )
         self.reqparse.add_argument(
             'play_time',
             required=True,
@@ -135,24 +114,6 @@ class Boardgame(Resource):
             help='No minimum number of players provided.',
             location=['form', 'json']
         )
-        # self.reqparse.add_argument(
-        #     'age_min',
-        #     required=False,
-        #     help='No minimum age provided.',
-        #     location=['form', 'json']
-        # )
-        # self.reqparse.add_argument(
-        #     'play_time_max',
-        #     required=True,
-        #     help='No maximum playtime provided.',
-        #     location=['form', 'json']
-        # )
-        # self.reqparse.add_argument(
-        #     'play_time_min',
-        #     required=True,
-        #     help='No minimum playtime provided.',
-        #     location=['form', 'json']
-        # )
         self.reqparse.add_argument(
             'play_time',
             required=True,
