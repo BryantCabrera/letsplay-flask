@@ -62,6 +62,10 @@ class UserBoardgameList(Resource):
     def post(self):
         args = self.reqparse.parse_args()
         userboardgame = models.UserBoardgame.create(user=args['user'], boardgame=args['boardgame'])
+        # boardgame = models.Boardgame.select().where(models.Boardgame.id == int(args['boardgame']))
+        # print(int(args['boardgame']), 'args[boardgame]')
+        # print(marshal(boardgame, boardgame_fields), ' this is boardgame from userboardgames.py')
+        # return marshal(boardgame, boardgame_fields)
         return userboardgame
 
 class UserBoardgame(Resource):
@@ -94,14 +98,14 @@ class UserBoardgame(Resource):
     @marshal_with(userboardgame_fields)
     def put(self, id):
         args = self.reqparse.parse_args()
-        query = models.UserBoardgame.update(**args).where(models.UserBoardgame.id == id)
+        query = models.UserBoardgame.update(**args).where(models.UserBoardgame.user_id == id)
         query.execute()
-        return (models.UserBoardgame.get(models.UserBoardgame.id == id), 200)
+        return (models.UserBoardgame.get(models.UserBoardgame.user_id == id), 200)
 
     @login_required
     @marshal_with(userboardgame_fields)
     def delete(self, id):
-        query = models.UserBoardgame.delete().where(models.UserBoardgame.id == id)
+        query = models.UserBoardgame.delete().where(models.UserBoardgame.user_id == id)
         query.execute()
         return 'This userboardgame resource join was successfully deleted.'
 

@@ -12,7 +12,7 @@ class User(UserMixin, Model):
     name = CharField()
     email = CharField(unique = True)
     password = CharField()
-    location = IntegerField(null = True)
+    location = IntegerField(default=90210, null = True)
     img_url = CharField(default='https://i.imgur.com/KbicDVh.jpg', null = True)
 
     class Meta:

@@ -131,7 +131,7 @@ class User(Resource):
     def delete(self, id):
         query = models.User.delete().where(models.User.id == id)
         query.execute()
-        return 'This user resource was successfully deleted.'
+        return 'This user record was successfully deleted.'
 
 class UserLogin(Resource):
     #this is the response to the client
@@ -159,6 +159,7 @@ class UserLogin(Resource):
             print('---------- logged')
         except models.DoesNotExist:
             print('User does not exist!')
+            return 'User does not exist!'
         else:
             if logged_user and check_password_hash(logged_user.password, args['password']):
                 login_user(logged_user)
