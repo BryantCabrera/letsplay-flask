@@ -6,7 +6,15 @@ from peewee import *
 from flask_bcrypt import generate_password_hash
 from flask_login import UserMixin
 
-DATABASE = SqliteDatabase('letsplay.sqlite')
+#local DATABASE
+# DATABASE = SqliteDatabase('letsplay.sqlite') 
+
+#Deployment Configurations
+import os
+
+from playhouse.db_url import connect
+
+DATABASE = connect(os.environ.get('DATABASE_URL'))
 
 class User(UserMixin, Model):
     name = CharField()
@@ -70,5 +78,5 @@ def populate():
 def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Boardgame, UserBoardgame], safe=True)
-    # populate()
+    populate()
     DATABASE.close()

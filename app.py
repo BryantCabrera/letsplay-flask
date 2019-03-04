@@ -3,6 +3,7 @@ from flask import Flask, g, render_template, flash, redirect, url_for #updated f
 
 import config
 import models
+import os #import for deployment
 from resources.users import users_api
 from resources.boardgames import boardgames_api
 from resources.userboardgames import userboardgames_api
@@ -32,9 +33,9 @@ def load_user(userid):
 
 #CORS allows our React app to connect to our APIs
 #supports_credentials=True allows us to send cookties back and forth
-CORS(users_api, origins= ["http://localhost:3000"], supports_credentials=True)
-CORS(boardgames_api, origins=["http://localhost:3000"], supports_credentials=True)
-CORS(userboardgames_api, origins=["http://localhost:3000"], supports_credentials=True)
+CORS(users_api, origins= ["http://localhost:3000", "https://letsplay-react.herokuapp.com/"], supports_credentials=True)
+CORS(boardgames_api, origins=["http://localhost:3000", "https://letsplay-react.herokuapp.com/"], supports_credentials=True)
+CORS(userboardgames_api, origins=["http://localhost:3000", "https://letsplay-react.herokuapp.com/"], supports_credentials=True)
 
 ##manage pool connections to the database
 @app.before_request
@@ -60,6 +61,10 @@ app.register_blueprint(userboardgames_api, url_prefix='/api/v1')
 def hello_world():
     return 'Welcome to Let\'s Play'
 
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
+    
 if __name__ == '__main__':
     models.initialize()
     app.run(debug=config.DEBUG, port=config.PORT)
