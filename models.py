@@ -78,5 +78,5 @@ def populate():
 def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Boardgame, UserBoardgame], safe=True)
-    populate()
+    # populate()
     DATABASE.close()
