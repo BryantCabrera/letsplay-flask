@@ -87,6 +87,7 @@ As a user, on my Edit Page, I want to have input fields pre-populated with my cu
     
     1. Adobe XD
     2. Adobe Photoshop
+    3. Postman
 
 
 ## F. Getting Started
