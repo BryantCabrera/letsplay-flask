@@ -33,9 +33,9 @@ def load_user(userid):
 
 #CORS allows our React app to connect to our APIs
 #supports_credentials=True allows us to send cookties back and forth
-CORS(users_api, origins= ["http://localhost:3000", "https://letsplay-react.herokuapp.com/"], supports_credentials=True)
-CORS(boardgames_api, origins=["http://localhost:3000", "https://letsplay-react.herokuapp.com/"], supports_credentials=True)
-CORS(userboardgames_api, origins=["http://localhost:3000", "https://letsplay-react.herokuapp.com/"], supports_credentials=True)
+CORS(users_api, origins= ["http://localhost:3000", "https://letsplay-react.herokuapp.com"], supports_credentials=True)
+CORS(boardgames_api, origins=["http://localhost:3000", "https://letsplay-react.herokuapp.com"], supports_credentials=True)
+CORS(userboardgames_api, origins=["http://localhost:3000", "https://letsplay-react.herokuapp.com"], supports_credentials=True)
 
 ##manage pool connections to the database
 @app.before_request
