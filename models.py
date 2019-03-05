@@ -62,7 +62,7 @@ class UserBoardgame(Model):
         database = DATABASE
 
 def populate():
-    for i in range(1, 2):
+    for i in range(1, 101):
         request = requests.get('https://bgg-json.azurewebsites.net/thing/{number}'.format(number=i))
 
         parsed_request = json.loads(request.text)
