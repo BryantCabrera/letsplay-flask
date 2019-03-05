@@ -2,10 +2,7 @@
 
 
 ## A. Description
-Let's Play
-
-Link to deployed app: 
-
+React Front-End: [https://letsplay-react.herokuapp.com](https://letsplay-react.herokuapp.com) 
 
 ```
 Let's Play was built in 5 days by:
