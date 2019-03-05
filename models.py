@@ -49,7 +49,7 @@ class Boardgame(Model):
     number_of_players_min = IntegerField()
     play_time = IntegerField()
     img_url = CharField()
-    # description = CharField()
+    description = CharField()
 
     class Meta:
         database = DATABASE
@@ -72,8 +72,8 @@ def populate():
             number_of_players_max=parsed_request['maxPlayers'],
             number_of_players_min=parsed_request['minPlayers'],
             play_time=parsed_request['playingTime'],
-            img_url=parsed_request['image'])
-            # description=parsed_request['description'])
+            img_url=parsed_request['image'],
+            description='hello')
 
 def initialize():
     DATABASE.connect()
