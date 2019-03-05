@@ -72,7 +72,7 @@ def populate():
             number_of_players_max=parsed_request['maxPlayers'],
             number_of_players_min=parsed_request['minPlayers'],
             play_time=parsed_request['playingTime'],
-            img_url=parsed_request['image'],
+            img_url=parsed_request['image'])
             # description=parsed_request['description'])
 
 def initialize():
