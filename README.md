@@ -74,7 +74,9 @@ As a user, on my Edit Page, I want to have input fields pre-populated with my cu
 
 > APIs
 
-    1. Board Game Geek: [https://bgg-json.azurewebsites.net/](https://bgg-json.azurewebsites.net/) 
+    1. Board Game Geek JSON: [https://bgg-json.azurewebsites.net/](https://bgg-json.azurewebsites.net/) 
+    2. Board Game Geek XML: [https://boardgamegeek.com/wiki/page/BGG_XML_API2](https://boardgamegeek.com/wiki/page/BGG_XML_API2) 
+
 
 > Authentication
     
