@@ -74,7 +74,7 @@ As a user, on my Edit Page, I want to have input fields pre-populated with my cu
 
 > APIs
 
-    1. Board Game Geek
+    1. Board Game Geek: [https://bgg-json.azurewebsites.net/](https://bgg-json.azurewebsites.net/) 
 
 > Authentication
     
